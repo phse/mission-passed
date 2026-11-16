@@ -11,6 +11,9 @@ import java.awt.GradientPaint
 import java.awt.Graphics
 import java.awt.Graphics2D
 import java.awt.RenderingHints
+import java.awt.Window
+import java.awt.event.WindowAdapter
+import java.awt.event.WindowEvent
 import java.awt.font.TextLayout
 import java.awt.geom.AffineTransform
 import javax.swing.JComponent
@@ -37,9 +40,41 @@ object MissionOverlay {
         private set
 
     fun show(project: Project, kind: Kind, subtitle: String) {
+        // Schon bei der Anforderung merken, damit der Exit-Code-Weg einen zurückgestellten Testbanner nicht ersetzt
+        lastShown = System.currentTimeMillis()
+        val frame = WindowManager.getInstance().getIdeFrame(project)?.component ?: return
+        val root = SwingUtilities.getRootPane(frame) ?: return
+        val window = SwingUtilities.getWindowAncestor(root)
+        if (window == null || window.isActive) show(root.layeredPane, kind, subtitle)
+        else showWhenActivated(window, root.layeredPane, kind, subtitle)
+    }
+
+    /** Sofort einblenden, auch wenn das Fenster nicht aktiv ist (Screenshots). */
+    fun showNow(project: Project, kind: Kind, subtitle: String) {
         val frame = WindowManager.getInstance().getIdeFrame(project)?.component ?: return
         val root = SwingUtilities.getRootPane(frame) ?: return
         show(root.layeredPane, kind, subtitle)
+    }
+
+    /** Fenster im Hintergrund: erst einblenden, wenn es wieder aktiv wird. Nur das letzte Ergebnis zählt. */
+    private val pending = HashMap<Window, WindowAdapter>()
+
+    private fun showWhenActivated(window: Window, layered: JLayeredPane, kind: Kind, subtitle: String) {
+        pending.remove(window)?.let { window.removeWindowListener(it) }
+        val listener = object : WindowAdapter() {
+            override fun windowActivated(e: WindowEvent) {
+                window.removeWindowListener(this)
+                pending.remove(window)
+                show(layered, kind, subtitle)
+            }
+
+            override fun windowClosed(e: WindowEvent) {
+                window.removeWindowListener(this)
+                pending.remove(window)
+            }
+        }
+        pending[window] = listener
+        window.addWindowListener(listener)
     }
 
     /** Für die Vorschau in den Einstellungen: das gerade aktive Fenster. */

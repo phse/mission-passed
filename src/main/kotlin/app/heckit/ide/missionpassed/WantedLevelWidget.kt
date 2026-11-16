@@ -32,7 +32,7 @@ class WantedLevelWidgetFactory : StatusBarWidgetFactory {
     override fun createWidget(project: Project): StatusBarWidget = WantedLevelWidget(project)
 }
 
-/** Fahndungslevel: bis zu fünf Sterne für Warnungen (1 Punkt) und Fehler (2 Punkte) in der aktuellen Datei. */
+/** Fahndungslevel: bis zu fünf Sterne für Warnungen inkl. schwacher (1 Punkt) und Fehler (2 Punkte) in der aktuellen Datei. */
 class WantedLevelWidget(private val project: Project) : CustomStatusBarWidget {
     companion object {
         const val ID = "MissionPassed.WantedLevel"
@@ -77,7 +77,7 @@ class WantedLevelWidget(private val project: Project) : CustomStatusBarWidget {
                 val info = HighlightInfo.fromRangeHighlighter(h) ?: return@forEach
                 when {
                     info.severity >= HighlightSeverity.ERROR -> errors++
-                    info.severity >= HighlightSeverity.WARNING -> warnings++
+                    info.severity >= HighlightSeverity.WEAK_WARNING -> warnings++
                 }
             }
         }

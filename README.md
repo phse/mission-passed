@@ -4,6 +4,8 @@
 
 `app.heckit.ide.missionpassed` · Source: [GitHub](https://github.com/phse/mission-passed) · Support: [GitHub Sponsors](https://github.com/sponsors/phse) or [Ko-fi](https://ko-fi.com/phse_de)
 
+![MISSION PASSED in the IDE](marketplace/screenshots/01-mission-passed.png)
+
 Your JetBrains IDE, open-world style. A fan homage to the upcoming Grand Theft Auto VI:
 green tests are a **MISSION PASSED!**, red ones get you **WASTED**, and every warning in your file raises your **wanted level**.
 
@@ -11,8 +13,8 @@ green tests are a **MISSION PASSED!**, red ones get you **WASTED**, and every wa
 
 - **MISSION PASSED!** fades in over the IDE when a test run passes (with *RESPECT +* one per test) or a run configuration exits with code 0.
 - **WASTED**: the IDE turns grey with a big red banner when tests fail or a run ends with an error exit code. Runs you stop yourself don't count.
-- **Wanted level**: up to five stars in the status bar. Warnings in the current file count one point, errors two.
-- The banners ignore the mouse and disappear after a few seconds.
+- **Wanted level**: up to five stars in the status bar. Warnings (also weak ones) in the current file count one point, errors two.
+- The banners ignore the mouse and disappear after a few seconds. If the IDE is in the background, the banner waits until you come back.
 - Preview via *Tools | Mission Passed*, settings in *Settings | Tools | Mission Passed*.
 
 ## Installation
@@ -28,6 +30,11 @@ Install *Mission Passed* from the JetBrains Marketplace, or build the ZIP yourse
 ```
 
 To use an installed IDE instead of downloading one, put `platformLocalPath=/Applications/PhpStorm.app` into `local.properties`.
+
+## Regenerating the screenshots
+
+`./gradlew runIde -Pscreenshots=<folder>` opens `marketplace/demo-project` in the sandbox and writes the steps from
+`marketplace/screenshots.txt` as PNGs into the folder.
 
 ## Publishing
 

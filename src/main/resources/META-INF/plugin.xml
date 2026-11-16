@@ -14,6 +14,7 @@
 <ul>
   <li><b>MISSION PASSED!</b> fades in over the IDE when a test run passes (with <i>RESPECT +</i> one per test) or a run configuration exits with code 0.</li>
   <li><b>WASTED</b>: the IDE turns grey with a big red banner when tests fail or a run ends with an error exit code. Runs you stop yourself don't count.</li>
+  <li>Busy elsewhere? If the IDE is in the background, the banner waits until you switch back.</li>
   <li><b>Wanted level</b>: up to five stars in the status bar. Warnings in the current file count one point, errors two. Clean code, zero stars.</li>
   <li>Doesn't block anything: the banners ignore the mouse and disappear after a few seconds.</li>
 </ul>
@@ -39,6 +40,7 @@
         <errorHandler implementation="com.intellij.diagnostic.JetBrainsMarketplaceErrorReportSubmitter"/>
         <applicationConfigurable parentId="tools" instance="app.heckit.ide.missionpassed.MissionConfigurable"
                                  id="app.heckit.ide.missionpassed" displayName="Mission Passed"/>
+        <postStartupActivity implementation="app.heckit.ide.missionpassed.ScreenshotStarter"/>
         <statusBarWidgetFactory id="MissionPassed.WantedLevel"
                                 implementation="app.heckit.ide.missionpassed.WantedLevelWidgetFactory"
                                 order="first"/>

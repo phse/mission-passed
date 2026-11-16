@@ -1,0 +1,4 @@
+# bildname: datei [dark] [passed:untertitel|wasted:untertitel|wanted]
+01-mission-passed: tests/cart.test.js passed:RESPECT_+12
+02-wasted: tests/cart.test.js dark wasted:1_test_failed
+03-wanted-level: src/Cart.php wanted

@@ -24,6 +24,15 @@ kotlin {
     }
 }
 
+// ./gradlew runIde -Pscreenshots=<ordner> baut den Screenshot-Helfer mit ein (nie für Releases verwenden).
+val screenshotDir = providers.gradleProperty("screenshots").orNull
+
+sourceSets {
+    main {
+        if (screenshotDir != null) kotlin.srcDir("src/screenshot/kotlin")
+    }
+}
+
 repositories {
     mavenCentral()
     intellijPlatform {
@@ -77,6 +86,26 @@ tasks.jar {
     from(files("LICENSE", "NOTICE")) { into("META-INF") }
 }
 
+// Für Screenshots wird das Demo-Projekt an einen neutralen Ort kopiert, damit kein lokaler Benutzerpfad im Bild erscheint.
+val screenshotProjectDir = "/Users/Shared/mission-demo"
+
+val prepareScreenshotProject = tasks.register<Sync>("prepareScreenshotProject") {
+    from("marketplace/demo-project")
+    into(screenshotProjectDir)
+}
+
+// Ohne -Pscreenshots bleibt aus dem Build-Cache sonst ein leeres screenshot/-Verzeichnis in den Jars.
+tasks.withType<Zip>().configureEach {
+    includeEmptyDirs = false
+}
+
 tasks.runIde {
-    providers.gradleProperty("openProject").orNull?.let { args(it) }
+    if (screenshotDir != null) {
+        dependsOn(prepareScreenshotProject)
+        args(screenshotProjectDir)
+        jvmArgs("-Dmissionpassed.screenshots=${file(screenshotDir).absolutePath}")
+        jvmArgs("-Dmissionpassed.screenshotSteps=${file("marketplace/screenshots.txt").absolutePath}")
+    } else {
+        providers.gradleProperty("openProject").orNull?.let { args(it) }
+    }
 }
