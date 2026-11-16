@@ -19,7 +19,7 @@ green tests are a **MISSION PASSED!**, red ones get you **WASTED**, and every wa
 
 ## Installation
 
-Install *Mission Passed* from the JetBrains Marketplace, or build the ZIP yourself and use *Install Plugin from Disk*.
+Install *Mission Passed* from the [JetBrains Marketplace](https://plugins.jetbrains.com/plugin/36198-mission-passed), or build the ZIP yourself and use *Install Plugin from Disk*.
 
 ## Build and run
 
