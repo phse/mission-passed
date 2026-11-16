@@ -1,0 +1,61 @@
+<idea-plugin>
+    <id>app.heckit.ide.missionpassed</id>
+    <name>Mission Passed</name>
+    <vendor url="https://heckit.app">heck\it</vendor>
+
+    <description><![CDATA[
+<p>
+  Your IDE, open-world style. A fan homage to the upcoming Grand Theft Auto VI:
+  green tests are a <b>MISSION PASSED!</b>, red ones get you <b>WASTED</b>, and every warning in your file
+  raises your <b>wanted level</b>.
+</p>
+
+<h3>Features</h3>
+<ul>
+  <li><b>MISSION PASSED!</b> fades in over the IDE when a test run passes (with <i>RESPECT +</i> one per test) or a run configuration exits with code 0.</li>
+  <li><b>WASTED</b>: the IDE turns grey with a big red banner when tests fail or a run ends with an error exit code. Runs you stop yourself don't count.</li>
+  <li><b>Wanted level</b>: up to five stars in the status bar. Warnings in the current file count one point, errors two. Clean code, zero stars.</li>
+  <li>Doesn't block anything: the banners ignore the mouse and disappear after a few seconds.</li>
+</ul>
+
+<h3>Usage</h3>
+<ul>
+  <li>Just run your tests. Preview the banners via <b>Tools | Mission Passed</b>.</li>
+  <li>Settings: <b>Settings | Tools | Mission Passed</b>.</li>
+</ul>
+
+<p>
+  Mission Passed is an unofficial fan project. It is not affiliated with, endorsed or sponsored by Rockstar Games or Take-Two Interactive.
+  Grand Theft Auto is a trademark of Take-Two Interactive Software, Inc.
+</p>
+<p>You can support it via GitHub Sponsors or buy me a coffee on Ko-fi.</p>
+    ]]></description>
+
+    <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.modules.lang</depends>
+    <depends optional="true" config-file="missionPassed-tests.xml">com.intellij.platform.testRunner</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <errorHandler implementation="com.intellij.diagnostic.JetBrainsMarketplaceErrorReportSubmitter"/>
+        <applicationConfigurable parentId="tools" instance="app.heckit.ide.missionpassed.MissionConfigurable"
+                                 id="app.heckit.ide.missionpassed" displayName="Mission Passed"/>
+        <statusBarWidgetFactory id="MissionPassed.WantedLevel"
+                                implementation="app.heckit.ide.missionpassed.WantedLevelWidgetFactory"
+                                order="first"/>
+    </extensions>
+
+    <projectListeners>
+        <listener class="app.heckit.ide.missionpassed.MissionExecutionListener"
+                  topic="com.intellij.execution.ExecutionListener"/>
+    </projectListeners>
+
+    <actions>
+        <group id="MissionPassed.Menu" text="Mission Passed" popup="true">
+            <add-to-group group-id="ToolsMenu" anchor="last"/>
+            <action id="MissionPassed.PreviewPassed" class="app.heckit.ide.missionpassed.PreviewPassedAction"
+                    text="Preview MISSION PASSED"/>
+            <action id="MissionPassed.PreviewWasted" class="app.heckit.ide.missionpassed.PreviewWastedAction"
+                    text="Preview WASTED"/>
+        </group>
+    </actions>
+</idea-plugin>

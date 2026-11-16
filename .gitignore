@@ -1,0 +1,18 @@
+.gradle/
+.kotlin/
+build/
+.intellijPlatform/
+.idea/
+*.iml
+out/
+
+# Demo-Projekt für Screenshots behält seine vorbelegte workspace.xml
+!marketplace/demo-project/.idea/
+local.properties
+.DS_Store
+
+# Logo-Entwürfe bleiben lokal
+marketplace/icon-proposals/
+
+# Zukunftspläne bleiben lokal
+ROADMAP.md
