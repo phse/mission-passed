@@ -59,6 +59,10 @@ intellijPlatform {
             untilBuild = provider { null }
         }
         changeNotes = """
+            <h3>1.0.1</h3>
+            <ul>
+              <li>Description updated: Grand Theft Auto VI is out.</li>
+            </ul>
             <h3>1.0.0</h3>
             <ul>
               <li>First release: <i>MISSION PASSED</i> when tests pass or a run finishes cleanly, <i>WASTED</i> when they fail.</li>

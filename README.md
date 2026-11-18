@@ -6,8 +6,8 @@
 
 ![MISSION PASSED in the IDE](marketplace/screenshots/01-mission-passed.png)
 
-Your JetBrains IDE, open-world style. A fan homage to the upcoming Grand Theft Auto VI:
-green tests are a **MISSION PASSED!**, red ones get you **WASTED**, and every warning in your file raises your **wanted level**.
+Your JetBrains IDE, GTA style. A fan homage to Grand Theft Auto VI (GTA 6): green tests are a **MISSION PASSED!**,
+red ones get you **WASTED**, and every warning in your file raises your **wanted level**. A bit of gamification for your test runs.
 
 ## Features
 

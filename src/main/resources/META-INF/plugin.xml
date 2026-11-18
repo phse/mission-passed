@@ -5,9 +5,9 @@
 
     <description><![CDATA[
 <p>
-  Your IDE, open-world style. A fan homage to the upcoming Grand Theft Auto VI:
-  green tests are a <b>MISSION PASSED!</b>, red ones get you <b>WASTED</b>, and every warning in your file
-  raises your <b>wanted level</b>.
+  Your IDE, GTA style. A fan homage to Grand Theft Auto VI (GTA 6): green tests are a <b>MISSION PASSED!</b>,
+  red ones get you <b>WASTED</b>, and every warning in your file raises your <b>wanted level</b>.
+  A bit of gamification for your test runs.
 </p>
 
 <h3>Features</h3>
